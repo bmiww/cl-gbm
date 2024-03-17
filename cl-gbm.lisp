@@ -1,12 +1,14 @@
 (in-package :gbm)
 
 (define-foreign-library libgbm
-    (:unix (:or "/usr/lib64/libgbm.so.1"
-                "/usr/lib64/libgbm.so.0"
-                "/usr/lib64/libgbm.so"
-                "/usr/lib/x86_64-linux-gnu/libgbm.so"
-                "/usr/lib/x86_64-linux-gnu/libgbm.so.1"
-                "/usr/lib/x86_64-linux-gnu/libgbm.so.1.0.0"))
+  (:unix (:or "/usr/lib/libgbm.so.1"
+	      "/usr/lib/libgbm.so"
+	      "/usr/lib64/libgbm.so.1"
+              "/usr/lib64/libgbm.so.0"
+              "/usr/lib64/libgbm.so"
+              "/usr/lib/x86_64-linux-gnu/libgbm.so"
+              "/usr/lib/x86_64-linux-gnu/libgbm.so.1"
+              "/usr/lib/x86_64-linux-gnu/libgbm.so.1.0.0"))
   (t (:default "libgbm")))
 
 (use-foreign-library libgbm)
@@ -48,4 +50,3 @@
 
 (defcfun ("gbm_device_destroy" device-destroy) :void
   (device :pointer))
-
