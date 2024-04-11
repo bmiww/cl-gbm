@@ -33,9 +33,25 @@
   (s64 :int64)
   (u65 :uint64))
 
+
+(defvar FORMAT_XRGB_8888 875713112)
+
+(defvar GBM_BO_USE_SCANOUT #x1)
+(defvar GBM_BO_USE_RENDERING #x4)
+
+(defcfun ("gbm_bo_create" bo-create) :pointer
+  (device :pointer)
+  (width :uint32)
+  (height :uint32)
+  (format :uint32)
+  (usage :uint32))
+
 ;; Until I figure out how to use defcunion
 ;; will just declare that gbm_bo_get_handle returns int32
 (defcfun ("gbm_bo_get_handle" bo-get-handle) :uint32 ;(:union bo-handle)
+  (bo :pointer))
+
+(defcfun ("gbm_bo_get_fd" bo-get-fd) :int
   (bo :pointer))
 
 (defcfun ("gbm_bo_get_stride" bo-get-stride) :uint32
