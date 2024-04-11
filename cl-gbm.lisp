@@ -34,10 +34,10 @@
   (u65 :uint64))
 
 
-(defvar FORMAT_XRGB_8888 875713112)
+(defvar FORMAT_XRGB8888 875713112)
 
-(defvar GBM_BO_USE_SCANOUT #x1)
-(defvar GBM_BO_USE_RENDERING #x4)
+(defvar BO_USE_SCANOUT #x1)
+(defvar BO_USE_RENDERING #x4)
 
 (defcfun ("gbm_bo_create" bo-create) :pointer
   (device :pointer)
