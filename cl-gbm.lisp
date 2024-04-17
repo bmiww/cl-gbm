@@ -13,6 +13,27 @@
 
 (use-foreign-library libgbm)
 
+
+
+;; ┌─┐┌─┐┌┐┌┌─┐┌┬┐┌─┐
+;; │  │ ││││└─┐ │ └─┐
+;; └─┘└─┘┘└┘└─┘ ┴ └─┘
+(defvar FORMAT_XRGB8888 875713112)
+
+(defvar BO_USE_SCANOUT #x1)
+(defvar BO_USE_RENDERING #x4)
+
+(defcunion bo-handle
+  (ptr :pointer)
+  (s32 :int32)
+  (u32 :uint32)
+  (s64 :int64)
+  (u65 :uint64))
+
+
+;; ┌─┐┬ ┬┌┐┌
+;; ├┤ │ ││││
+;; └  └─┘┘└┘
 (defcfun ("gbm_create_device" create-device) :pointer
   (fd :int))
 
@@ -26,18 +47,6 @@
 (defcfun ("gbm_surface_lock_front_buffer" surface-lock-front-buffer) :pointer
   (surface :pointer))
 
-(defcunion bo-handle
-  (ptr :pointer)
-  (s32 :int32)
-  (u32 :uint32)
-  (s64 :int64)
-  (u65 :uint64))
-
-
-(defvar FORMAT_XRGB8888 875713112)
-
-(defvar BO_USE_SCANOUT #x1)
-(defvar BO_USE_RENDERING #x4)
 
 (defcfun ("gbm_bo_create" bo-create) :pointer
   (device :pointer)
@@ -45,6 +54,9 @@
   (height :uint32)
   (format :uint32)
   (usage :uint32))
+
+(defcfun ("gbm_bo_destroy" bo-destroy) :void
+  (bo :pointer))
 
 ;; Until I figure out how to use defcunion
 ;; will just declare that gbm_bo_get_handle returns int32

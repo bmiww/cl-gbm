@@ -7,6 +7,7 @@
    surface-create
    surface-lock-front-buffer
    bo-create
+   bo-destroy
    bo-get-fd
    bo-get-handle
    bo-get-stride
