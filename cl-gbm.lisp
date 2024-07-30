@@ -34,7 +34,7 @@
 ;; ┌─┐┬ ┬┌┐┌
 ;; ├┤ │ ││││
 ;; └  └─┘┘└┘
-(defcfun ("gbm_create_device" create-device) :pointer
+(defcfun ("gbm_create_device" %create-device) :pointer
   (fd :int))
 
 (defcfun ("gbm_surface_create" surface-create) :pointer
@@ -78,3 +78,16 @@
 
 (defcfun ("gbm_device_destroy" device-destroy) :void
   (device :pointer))
+
+
+(defcvar ("errno" +error-number+ :read-only t) :int)
+
+;; ┬ ┬┬─┐┌─┐┌─┐
+;; │││├┬┘├─┤├─┘
+;; └┴┘┴└─┴ ┴┴
+(defun create-device (fd)
+  (let ((device (%create-device fd)))
+    (if (null-pointer-p device)
+	(error
+	 (format nil "Failed to create GBM device. Got Null pointer. Error number ~A" +error-number+))
+	device)))
